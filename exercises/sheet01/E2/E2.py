@@ -21,21 +21,10 @@ def riemann_sum(f, a, b, h):
 def simpsons_rule(f, a, b, N):
     if N % 2 != 0:
         raise ValueError("N must be even for Simpson's rule.")
+    N = int(N)
     h = (b - a) / N                 # Calculate the interval width
     x = np.linspace(a, b, N + 1)    # Create an array of equally spaced points between a and b
     y = f(x)                        # Evaluate the integrand at the x values
     # Calculate the Simpson's rule sum, including the contributions from the first and last points,
     # the odd-indexed points (multiplied by 4), and the even-indexed points (multiplied by 2)
     return h / 3 * (y[0] + y[-1] + 2 * np.sum(y[2:-1:2]) + 4 * np.sum(y[1:-1:2]))
-
-# Example usage:
-def example_function(x):
-    return np.sin(x)
-
-a = 0
-b = np.pi
-h = 0.01
-
-print("Trapezoid rule:", trapezoid_rule(example_function, a, b, h))
-print("Riemann sum:", riemann_sum(example_function, a, b, h))
-print("Simpson's rule:", simpsons_rule(example_function, a, b, int((b - a) / h)))
