@@ -38,12 +38,13 @@ def calculate_integral(integrand, a, b, initial_h, integration_method, target_re
         if relative_change < target_relative_change:
             break
         previous_result = current_result
-    return current_result
+    return (current_result, h)
 
 # Calculate the integrals I1 and I2 with different methods
 for method_name, method in [("Trapezoid rule", trapezoid_rule), ("Riemann sum", riemann_sum), ("Simpson's rule", simpsons_rule)]:
     result_I1 = calculate_integral(integrand_I1, a1, b1, h_initial_1, method)
     result_I2 = calculate_integral(integrand_I2, a2, b2, h_initial_2, method)
     print(f"{method_name}:")
-    print(f"I1 ≈ {result_I1:.6f}")
-    print(f"I2 ≈ {result_I2:.6f}\n")
+    print(f"I1 ≈ {result_I1[0]:.6f}, at {'N' if method is simpsons_rule else 'h'} = {format(result_I1[1], '.4g')}")
+    print(f"I2 ≈ {result_I2[0]:.6f}, at {'N' if method is simpsons_rule else 'h'} = {format(result_I2[1], '.4g')}\n")
+    # format(number, '.4g') rounds a number to 4 significant digits
