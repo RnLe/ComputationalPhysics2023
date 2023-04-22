@@ -80,5 +80,6 @@
     "**/.vscode",
     "**/.vscode/**"
   ],
-  "C_Cpp_Runner.useAddressSanitizer": false
+  "C_Cpp_Runner.useAddressSanitizer": false,
+  "cmake.sourceDirectory": "/mnt/c/Users/renem/iCloudDrive/CP/exercises/sheet00/E2"
 }

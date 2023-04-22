@@ -33,7 +33,7 @@ void write_to_file(float* values, int steps, string filename, float limit) {
 int main() {
     // Flags for easier code handling
     bool quickView = true;      // Only the last value of an array is shown, instead of the whole array.
-    bool writeToFile = false;
+    bool writeToFile = true;
 
     int steps = 1000;
     float limit_a = 2e7;            // 2e7 is a good value, because cancellation is happening right before reaching the limit

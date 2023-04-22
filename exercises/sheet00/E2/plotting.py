@@ -20,7 +20,7 @@ plt.ylabel('y')
 plt.legend()
 
 #plt.savefig("a.png", dpi=300)
-#plt.savefig("a.pdf")
+plt.savefig("a.pdf")
 
 plt.close()
 
@@ -79,7 +79,7 @@ ax.add_artist(con)
 
 # Save the figure
 #plt.savefig("b.png", dpi=300)
-#plt.savefig("b.pdf")
+plt.savefig("b.pdf")
 
 plt.close()
 
@@ -97,7 +97,7 @@ ax.set_xscale('log')
 ax.set_yscale('log')
 
 # Set axis labels
-ax.set_xlabel('x')
+ax.set_xlabel('$\delta$')
 ax.set_ylabel('y')
 
 ax.legend()

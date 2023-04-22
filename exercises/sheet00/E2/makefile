@@ -4,7 +4,7 @@ CXXFLAGS = -Wall -O0 -std=c++17
 SRC_DIR = .
 OBJ_DIR = ./build/Debug
 SRC_FILES = $(wildcard $(SRC_DIR)/*.cpp)
-OBJ_FILES = $(patsubst $(SRC_DIR)/%.cpp, $(OBJ_DIR)/%.o, $(SRC_FILES))
+OBJ_FILES := $(SRC_FILES:%.cpp=$(OBJ_DIR)/%.o)
 
 EXECUTABLE = outDebug
 
