@@ -89,7 +89,6 @@ void write_to_file_d(string filename, auto results) {
 
 double volume(vector<tuple<double, double, double, double>> SRZPsi, double h) {
     double volume_ = 0;
-    // Trapezoids rule to calculate the volume
     for (int i = 0; 0.5 > get<1>(SRZPsi[i]); i++) {
         double r1 = get<1>(SRZPsi[i]);
         double r2 = get<1>(SRZPsi[i+1]);
@@ -109,33 +108,46 @@ int main() {
     double p_La_gamma = 2, rho_ga2_gamma = 0.1;
     double S0 = 0, R0 = 0, Z0 = 0, Psi0 = 0;
     double h =1e-2;
-    double S_max = 1000;
+    double S_max = 10000;
 
-    // Run the RK4 algorithm
+    cout << "Parameters: p_La_gamma: " << p_La_gamma << ", rho_ga2_gamma: " << rho_ga2_gamma << ", h: " << h << ", S_max: " << S_max << endl;
+
+    // c) Run the RK4 algorithm
+    cout << "c) Running RK4 algorithm..." << endl;
     auto results = rk4(shape_equations, S0, R0, Z0, Psi0, p_La_gamma, rho_ga2_gamma, h, S_max);
+    cout << "RK4 algorithm finished.\n";
 
-    // Print the results
+    // Print the first two and last two lines of data
     cout << "S\tR\tZ\tPsi" << endl;
-    for (const auto &[S, R, Z, Psi] : results) {
-        cout << S << '\t' << R << '\t' << Z << '\t' << Psi << endl;
+    for (size_t i = 0; i < results.size(); i++) {
+        if (i < 2 || i >= results.size() - 2) {
+            auto &[S, R, Z, Psi] = results[i];
+            cout << S << '\t' << R << '\t' << Z << '\t' << Psi << endl;
+        }
     }
 
-    // write_to_file("rk4_all_r.txt", results);
-    cout << volume(results, h)  << endl;
+    string filename_c = "rk4_gamma2.txt";
+    write_to_file(filename_c, results);
+    cout << "Data written to file: " << filename_c << endl;
 
     // d)
     // Redefine parameters and explore the parameter space
     p_La_gamma = 0, rho_ga2_gamma = 0.5;
-    double p_La_gamma_max = 5, N = 1000;     // Introducing N as number of volumes calculated
+    double p_La_gamma_max = 5, N = 200;     // Introducing N as number of volumes calculated
     vector<tuple<double, double>> volumes;  // The volumes vector should also know at what parameter it was evaluated
+
+    cout << "\nd) Exploring the parameter space..." << endl;
+    cout << "N = " << N << " iterations of the RK4 algorithm." << endl;
 
     for (int i = 0; i < N; i++) {
         auto results = rk4(shape_equations, S0, R0, Z0, Psi0, p_La_gamma, rho_ga2_gamma, h, S_max);
         volumes.push_back({p_La_gamma, volume(results, h)});
         p_La_gamma = i / N * p_La_gamma_max;
     }
-    
-    write_to_file_d("volumes_N1000.txt", volumes);
+
+    string filename_d = "volumes_N200.txt";
+    write_to_file_d(filename_d, volumes);
+    cout << "Data written to file: " << filename_d << endl;
 
     return 0;
 }
