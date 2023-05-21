@@ -552,7 +552,7 @@ int main(void)
     uint partPerRow;                // Particles per row. I assume that the whole x-axis is meant by that.
     uint N;
     double L;
-    int numBins                     = 128;
+    int numBins                     = 512;
 
     if (b) {
         clog << "\033[1;34mb) Equilibration test\n\033[0m";
