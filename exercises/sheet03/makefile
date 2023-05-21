@@ -1,5 +1,5 @@
 CXX = gcc
-CXXFLAGS = -Ofast -std=c++17 -I../../libraries/eigen-3.4.0
+CXXFLAGS = -Ofast -std=c++20 -I../../libraries/eigen-3.4.0
 
 SRC_DIR = .
 OBJ_DIR = ./build/Debug
