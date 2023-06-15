@@ -1,0 +1,25 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "cppdbg",
+      "request": "launch",
+      "args": [],
+      "stopAtEntry": false,
+      "externalConsole": false,
+      "cwd": "/mnt/c/Users/renem/iCloudDrive/CP/exercises/sheet07/E2",
+      "program": "/mnt/c/Users/renem/iCloudDrive/CP/exercises/sheet07/E2/main",
+      "MIMode": "gdb",
+      "miDebuggerPath": "gdb",
+      "setupCommands": [
+        {
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        }
+      ]
+    }
+  ],
+  "program": "/mnt/c/Users/renem/iCloudDrive/CP/exercises/sheet07/E2/main"
+}
