@@ -1,9 +1,12 @@
 #include <iostream>
 #include <vector>
 #include <fstream>
+#include <cmath>
 
 typedef unsigned long long int ulli;
 
+// ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+// CLASSES
 class LCG {
     public:
                                                 LCG(ulli seed, ulli a, ulli c, ulli m) : seed(seed), a(a), c(c), m(m) {};
@@ -28,6 +31,70 @@ ulli LCG::iteration_step() {
     return seed;
 }
 
+// ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+// CLASSES END
+
+// ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+// SAMPLINGS
+
+double box_muller_transform(LCG& generator) {
+    double U = generator.random_f();
+    double V = generator.random_f();
+
+    double X = sqrt(-2.0 * log(U)) * cos(2.0 * M_PI * V);
+    // double Y = sqrt(-2.0 * log(U)) * sin(2.0 * M_PI * V); // For the second random number
+
+    return X;
+}
+
+double central_limit_transform(LCG& generator, int N) {
+    double sum = 0.0;
+    for (int i = 0; i < N; i++) {
+        sum += generator.random_f();
+    }
+
+    // Normalize: Mean 0, Std 1
+    return (sum - N/2.0) / sqrt(N/12.0);
+}
+
+double rejection_sampling(LCG& generator) {
+    double pi = 3.14159265358979323846;
+    while (true) {
+        double u = generator.random_f() * pi;  // Scaled to [0, pi]
+        double v = generator.random_f() * 0.5;  // Scaled to [0, 0.5]
+        if (v <= std::sin(u) / 2) {
+            return u;
+        }
+    }
+}
+
+double inversion_sampling(LCG& generator) {
+    return std::cbrt(generator.random_f());  // cbrt() is the cubic root
+}
+
+// ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+// WRITE TO CSV
+
+void write_to_csv_box_muller(std::vector<LCG>& randomGenerators, int N) {
+    std::ofstream file;
+    file.open("box_muller_numbers.csv");
+    file << "Gaussian\n";
+    for (int i = 0; i < N; i++) {
+        file << box_muller_transform(randomGenerators[3]) << "\n";  // Generator with index 3 was asked for
+    }
+    file.close();
+}
+
+void write_to_csv_central_limit(std::vector<LCG>& randomGenerators, int N, int n_samples) {
+    std::ofstream file;
+    file.open("central_limit_numbers.csv");
+    file << "Gaussian\n";
+    for (int i = 0; i < n_samples; i++) {
+        file << central_limit_transform(randomGenerators[3], N) << "\n";
+    }
+    file.close();
+}
+
 void write_to_csv(std::vector<LCG>& randomGenerators, int N) {
     std::ofstream file;
     file.open("random_numbers.csv");
@@ -43,6 +110,31 @@ void write_to_csv(std::vector<LCG>& randomGenerators, int N) {
     }
     file.close();
 }
+
+void write_to_csv_rejection_sampling(std::vector<LCG>& randomGenerators, int n_samples) {
+    std::ofstream file;
+    file.open("rejection_sampling_numbers.csv");
+    file << "Rejection\n";
+    for (int i = 0; i < n_samples; i++) {
+        file << rejection_sampling(randomGenerators[3]) << "\n";
+    }
+    file.close();
+}
+
+void write_to_csv_inversion_sampling(std::vector<LCG>& randomGenerators, int n_samples) {
+    std::ofstream file;
+    file.open("inversion_sampling_numbers.csv");
+    file << "Inversion\n";
+    for (int i = 0; i < n_samples; i++) {
+        file << inversion_sampling(randomGenerators[3]) << "\n";
+    }
+    file.close();
+}
+
+// ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+
 
 int main() {
     std::vector<ulli> seed = {1234, 1234, 123456789, 1234};
@@ -63,6 +155,10 @@ int main() {
     }
     
     write_to_csv(randomGenerators, 100000);
+    write_to_csv_box_muller(randomGenerators, 100000);
+    write_to_csv_central_limit(randomGenerators, 12, 100000);  // N=12 because it's close to sqrt 100
+    write_to_csv_rejection_sampling(randomGenerators, 100000);
+    write_to_csv_inversion_sampling(randomGenerators, 100000);
 
     return 0;
 }

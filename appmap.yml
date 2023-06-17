@@ -1,0 +1,6 @@
+appmap_dir: tmp/appmap
+language: python
+name: CP
+packages:
+- path: E2
+- path: gdb
