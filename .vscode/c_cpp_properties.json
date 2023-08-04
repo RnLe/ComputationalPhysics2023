@@ -4,7 +4,8 @@
             "name": "linux-gcc-x64",
             "includePath": [
                 "${workspaceFolder}/**",
-                "libraries/eigen-3.4.0"
+                "libraries/eigen-3.4.0",
+                "/home/renlephy/miniconda3/lib/python3.10/site-packages/pybind11/**"
             ],
             "compilerPath": "/usr/bin/gcc",
             "cStandard": "${default}",

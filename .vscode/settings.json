@@ -65,7 +65,11 @@
     "thread": "cpp",
     "cinttypes": "cpp",
     "valarray": "cpp",
-    "dense": "cpp"
+    "dense": "cpp",
+    "forward_list": "cpp",
+    "optional": "cpp",
+    "typeindex": "cpp",
+    "variant": "cpp"
   },
   "C_Cpp_Runner.cCompilerPath": "gcc",
   "C_Cpp_Runner.cppCompilerPath": "g++",
@@ -102,5 +106,6 @@
     "**/.vscode/**"
   ],
   "C_Cpp_Runner.useAddressSanitizer": false,
-  "cmake.sourceDirectory": "/mnt/c/Users/renem/iCloudDrive/CP/exercises/sheet00/E2"
+  "cmake.sourceDirectory": "/mnt/c/Users/renem/iCloudDrive/CP/exercises/sheet00/E2",
+  "C_Cpp.errorSquiggles": "disabled"
 }
