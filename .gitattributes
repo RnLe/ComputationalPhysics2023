@@ -1,0 +1,14 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+
+# Linguist overrides for GitHub language statistics
+# See: https://github.com/github-linguist/linguist/blob/master/docs/overrides.md
+
+# Exclude Jupyter Notebooks from language statistics
+*.ipynb linguist-vendored
+
+# Alternatively, mark them as documentation:
+# *.ipynb linguist-documentation
+
+# Generated files (also excluded from stats)
+*.generated.* linguist-generated
