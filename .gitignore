@@ -1,6 +1,29 @@
+# Directories
 libraries/
 KierfeldScriptSplit/
+build/
+__pycache__/
+
+# Large data files
 *.dat
-*.o
-*.txt
 *.csv
+
+# Compiled files
+*.o
+*.so
+*.exe
+main
+Solver.*
+
+# Log and output files
+*.txt
+*.log
+
+# Media files (animations, videos)
+*.mp4
+*.avi
+*.gif
+
+# Large PDFs (keep small ones for documentation)
+# Uncomment if needed:
+# *.pdf
